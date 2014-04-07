@@ -26,8 +26,12 @@
         
         
         //Define a cor de fundo do cenário
-        self.backgroundColor = [SKColor blackColor];
-        
+        //SKColor *fundo = [[SKColor alloc]initWithRed:1 green:1 blue:1 alpha:1];
+        SKSpriteNode *fundo = [SKSpriteNode spriteNodeWithImageNamed:@"fundo4.png"];
+        //SKColor *fundo = [[SKColor alloc]initWithRed:0.3 green:0.5 blue:0.8 alpha:1];
+        self.backgroundColor = [SKColor whiteColor];
+        fundo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        [self addChild:fundo];
         // Gravidade do Jogo
         [self.physicsWorld setGravity:CGVectorMake(0, -5)];
         self.physicsWorld.contactDelegate = self;
@@ -113,7 +117,7 @@
     spriteBola.physicsBody.collisionBitMask = categoriaPalheta | categoriaBLoco | categoriaBLocoInquebravel | categoriaBLocoInvisivel | categoriaBLocoLevel2 | categoriaBLocoLevel3;
     
     //Propriedades Palheta
-    spritePalheta = [SKSpriteNode spriteNodeWithImageNamed:@"barrinha"];
+    spritePalheta = [SKSpriteNode spriteNodeWithImageNamed:@"palheta"];
     self.gerenciadorJogo.tamanhoOriginalPalheta = CGSizeMake(self.size.width * 0.15, self.size.height * 0.02);
     [spritePalheta setSize:self.gerenciadorJogo.tamanhoOriginalPalheta];
     spritePalheta.name = @"Palheta";
