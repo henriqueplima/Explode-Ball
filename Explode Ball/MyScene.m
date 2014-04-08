@@ -27,12 +27,7 @@
         
         //Define a cor de fundo do cenário
         //SKColor *fundo = [[SKColor alloc]initWithRed:1 green:1 blue:1 alpha:1];
-        SKSpriteNode *fundo = [SKSpriteNode spriteNodeWithImageNamed:@"fundo4.png"];
-        //SKColor *fundo = [[SKColor alloc]initWithRed:0.3 green:0.5 blue:0.8 alpha:1];
-        self.backgroundColor = [SKColor whiteColor];
-        fundo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        [self addChild:fundo];
-        // Gravidade do Jogo
+                // Gravidade do Jogo
         [self.physicsWorld setGravity:CGVectorMake(0, -5)];
         self.physicsWorld.contactDelegate = self;
         
@@ -83,6 +78,15 @@
 - (void)montarFase{
     
     self.gerenciadorJogo = [GerenciadorJogo compartilharGerenciador];
+    
+    // Monta fundo
+    SKSpriteNode *fundo = [SKSpriteNode spriteNodeWithImageNamed:@"fundo4.png"];
+    //SKColor *fundo = [[SKColor alloc]initWithRed:0.3 green:0.5 blue:0.8 alpha:1];
+    self.backgroundColor = [SKColor whiteColor];
+    fundo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addChild:fundo];
+
+    
     
     self.gerenciadorJogo.totalBlocos = [self.gerenciadorJogo.faseMenu constroiFases:self.gerenciadorJogo.Fase :self.size];
     
@@ -367,11 +371,9 @@
         float bola = second.node.position.x;
         bola = bola / 10;
         palheta = palheta / 10;
-        float teste = bola - palheta;
-        //if (teste == 0) {
-           // NSLog(@"valor do impulso: %f",teste);
+        float impulsoY = bola - palheta;
             [second applyImpulse:CGVectorMake(0, 0)];
-            [second applyImpulse:CGVectorMake(teste, 1.5f)];
+            [second applyImpulse:CGVectorMake(impulsoY, 2.0f)];
         
     
         
@@ -382,7 +384,9 @@
         
         [self encerraRodada];
         
-        //Contato bloco e Bola
+    
+    //Contato bloco e Bola
+        
     }else if ([first.node.name isEqualToString:@"Bloco"] && [second.node.name isEqualToString:@"Bola"]){
         if (self.gerenciadorJogo.superBola) {
             [self removeCorpo:first];
@@ -398,6 +402,20 @@
             first.categoryBitMask = categoriaBLoco;
         }else if (first.categoryBitMask == categoriaBLocoInvisivel){
             first.categoryBitMask = categoriaBLoco;
+        }
+        
+        //float blocoX = first.node.position.x / 10;
+        float blocoY = first.node.position.y / 10;
+        //float bolaX = second.node.position.x / 10;
+        float bolaY = second.node.position.y / 10;
+        float impulsoY = bolaY - blocoY ;
+        
+        if (impulsoY < 0) {
+            [second applyImpulse:CGVectorMake(0, 0)];
+            [second applyImpulse:CGVectorMake(0, -2.0f)];
+        }else if (impulsoY > 0){
+            [second applyImpulse:CGVectorMake(0, 0)];
+            [second applyImpulse:CGVectorMake(0, 2.0f)];
         }
         
         

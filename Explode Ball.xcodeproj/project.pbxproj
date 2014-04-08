@@ -179,6 +179,7 @@
 		085DEE8018E52B04003629B6 /* Recursos */ = {
 			isa = PBXGroup;
 			children = (
+				085DEE8218E52B33003629B6 /* FEASFBRG.TTF */,
 				8464B1AE18EB8F4B004A1285 /* Audios */,
 				32882A1A18E5F4C40089AC9D /* Arquivo Ranking */,
 				085DEE8118E52B13003629B6 /* Fontes */,
@@ -190,7 +191,6 @@
 		085DEE8118E52B13003629B6 /* Fontes */ = {
 			isa = PBXGroup;
 			children = (
-				085DEE8218E52B33003629B6 /* FEASFBRG.TTF */,
 			);
 			name = Fontes;
 			sourceTree = "<group>";
