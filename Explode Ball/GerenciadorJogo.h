@@ -38,8 +38,9 @@ static const uint32_t categoriaTiro = 0x1 << 10;
 @property BOOL tiro;
 @property int nFases;
 @property NSString *fraseFinal;
-
 @property CGSize tamanhoOriginalPalheta;
+
+
 
 //Métodos:
 

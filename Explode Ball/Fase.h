@@ -17,6 +17,7 @@
 @property int nBlocosQuebraveis;
 @property CGSize tamanhoBloco;
 @property int nBlocosEspeciais;
+@property int tempo;
 
 
 - (NSMutableArray *)constroiFases:(int) faseLevel : (CGSize) tamanhoFrame;

@@ -25,6 +25,7 @@
             case 1:
             
             [self faseBrasil:tamanhoFrame];
+            self.tempo = 90;
             
             break;
             
@@ -32,6 +33,7 @@
             //Brasil
             
             [self faseFlor:tamanhoFrame];
+            self.tempo = 90;
             
             break;
             

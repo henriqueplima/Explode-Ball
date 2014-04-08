@@ -43,16 +43,14 @@
         self.physicsBody = bordas;
         self.physicsBody.friction = 0.0f;
         
-        //cria os demais nos da cena
         
-        [self criarObjetos];
         
         
         //Montar Fase
         
         [self montarFase];
         
-        [self iniciaRodada];
+        
         
         
         
@@ -93,6 +91,12 @@
     }
 
     [self.gerenciadorJogo preparaPlayerPrincipal:1];
+    self.tempoCorrido = self.gerenciadorJogo.faseMenu.tempo;
+    
+    //cria os demais nos da cena
+    
+    [self criarObjetos];
+    [self iniciaRodada];
 }
 
 
@@ -152,7 +156,8 @@
     bordaInferior.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bordaInferior.size];
     bordaInferior.physicsBody.dynamic = NO;
     bordaInferior.physicsBody.affectedByGravity = NO;
-    bordaInferior.physicsBody.categoryBitMask = categoriaBordaInferior | categoriaBola | categoriaBonus;
+    //bordaInferior.physicsBody.categoryBitMask = categoriaBordaInferior | categoriaBola | categoriaBonus;
+    bordaInferior.physicsBody.categoryBitMask = categoriaBordaInferior;
     //bordaInferior
     [self addChild:bordaInferior];
 
@@ -175,8 +180,23 @@
     self.lblPontos.position = CGPointMake(self.frame.size.width * 0.1, self.size.height * 0.9);
     self.lblPontos.fontSize = 65;
     
+    self.lblTempo = [SKLabelNode labelNodeWithFontNamed:@"Feast of Flesh BB"];
+    self.lblTempo.position = CGPointMake(self.frame.size.width * 0.5, self.size.height * 0.9);
+    self.lblTempo.fontSize = 60;
+    
+    int minutos = self.tempoCorrido / 60;
+    
+    int segundos = self.tempoCorrido - minutos * 60;
+    
+    [self.lblTempo setText:[NSString stringWithFormat: @"%d : %d",minutos,segundos ]];
+    [self.lblTempo setColor:[UIColor yellowColor]];
+    
     [self addChild:self.lblVida];
     [self addChild:self.lblPontos];
+    [self addChild:self.lblTempo];
+    
+    
+    
     
     
 }
@@ -216,21 +236,30 @@
         self.touchPalheta = YES;
    // }
     
-    if ([touch tapCount ] == 2)
-    {
-        
+
+    
+    
+    if ([touch tapCount] == 2) {
         if (!self.gerenciadorJogo.comecou) {
-            [spriteBola.physicsBody applyImpulse:CGVectorMake(5.0f,5.0f)];
-            //self.gerenciadorJogo.velocidadeAtual = spriteBola.physicsBody.velocity;
+            //[self iniciarTimer];
+            [spriteBola.physicsBody applyImpulse:CGVectorMake(3.0f, 5.0f)];
             [self.physicsWorld removeAllJoints];
             self.gerenciadorJogo.comecou = YES;
+            
+            
         }
-        
     }
+    
     if (self.gerenciadorJogo.tiro) {
         [self criaTiro];
     }
     
+}
+
+
+
+- (void)iniciarTimer{
+    self.tempo = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(controlaTempo) userInfo:nil repeats:-1];
 }
 
 -(void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
@@ -254,7 +283,14 @@
     }
 }
 
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    
+}
+
 - (void)encerraRodada{
+    
+    [self zeraRepetidorTempo];
     
     if (self.gerenciadorJogo.vida <= 1) {
         [self youLose];
@@ -292,6 +328,7 @@
     self.gerenciadorJogo.superBola = NO;
     self.gerenciadorJogo.tiro = NO;
     self.gerenciadorJogo.comecou = NO;
+    //self.tempo = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(controlaTempo) userInfo:nil repeats:YES];
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact{
@@ -443,18 +480,22 @@
 }
 
 - (void)Ganhou{
+    
+    [self zeraRepetidorTempo];
+    
     if (self.gerenciadorJogo.faseMenu.nBlocosQuebraveis < 1) {
         self.gerenciadorJogo.Fase += 1;
         if (self.gerenciadorJogo.Fase > self.gerenciadorJogo.nFases) {
             [self.gerenciadorJogo preparaPlayerPrincipal:2];
             self.gerenciadorJogo.fraseFinal = @"Você Ganhou";
+            
             ViewController *menuPrincipal = [ViewController sharedViewController];
             [menuPrincipal CenaYouLose];
         }else{
             [self removeAllChildren];
             [self montarFase];
-            [self criarObjetos];
-            [self iniciaRodada];
+//            [self criarObjetos];
+//            [self iniciaRodada];
         }
         
     }
@@ -474,6 +515,7 @@
 
 -(void)update:(CFTimeInterval)currentTime
 {
+    
  
     //[self atualizaPosicaoAcelerometro];
     /* Called before each frame is rendered */
@@ -627,8 +669,39 @@
         [bonus.physicsBody applyImpulse:CGVectorMake(-300.0f, 300.0f)];
     }
     
+}
+
+- (void)zeraRepetidorTempo{
+    if (self.tempo) {
+        [self.tempo invalidate];
+        self.tempo = nil;
+    }
+}
+
+- (void)controlaTempo{
+    
+    self.tempoCorrido -= 1;
+    int minutos = self.tempoCorrido / 60;
+    
+    int segundos = self.tempoCorrido - minutos * 60;
     
     
+    if (segundos < 10) {
+        [self.lblTempo setText:[NSString stringWithFormat:@"%d : 0%d",minutos, segundos]];
+    }else{
+        [self.lblTempo setText:[NSString stringWithFormat: @"%d : %d",minutos,segundos ]];
+    }
+    
+    
+    if ([self tempoCorrido] <= 0) {
+        [self zeraRepetidorTempo];
+        [self youLose];
+    }else if (self.tempoCorrido <= 10){
+        self.lblTempo.fontColor = [SKColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+    }else{
+        self.lblTempo.fontColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:1];
+    }
+
     
 }
 @end

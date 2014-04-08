@@ -23,4 +23,7 @@
 @property (nonatomic) BOOL touchPalheta;
 @property SKLabelNode * lblVida;
 @property SKLabelNode *lblPontos;
+@property SKLabelNode *lblTempo;
+@property NSTimer *tempo;
+@property NSTimeInterval tempoCorrido;
 @end
