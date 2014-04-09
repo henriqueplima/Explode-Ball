@@ -245,10 +245,11 @@
     
     if ([touch tapCount] == 2) {
         if (!self.gerenciadorJogo.comecou) {
-            //[self iniciarTimer];
+            [self iniciarTimer];
             [spriteBola.physicsBody applyImpulse:CGVectorMake(3.0f, 5.0f)];
             [self.physicsWorld removeAllJoints];
             self.gerenciadorJogo.comecou = YES;
+            //spritePalheta.size = CGSizeMake(spritePalheta.size.width * 1.5, spritePalheta.size.height);
             
             
         }
@@ -263,7 +264,7 @@
 
 
 - (void)iniciarTimer{
-    self.tempo = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(controlaTempo) userInfo:nil repeats:-1];
+    self.tempo = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(controlaTempo) userInfo:nil repeats:YES];
 }
 
 -(void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
@@ -404,6 +405,8 @@
             first.categoryBitMask = categoriaBLoco;
         }
         
+        //impulso
+        /*
         //float blocoX = first.node.position.x / 10;
         float blocoY = first.node.position.y / 10;
         //float bolaX = second.node.position.x / 10;
@@ -417,7 +420,7 @@
             [second applyImpulse:CGVectorMake(0, 0)];
             [second applyImpulse:CGVectorMake(0, 2.0f)];
         }
-        
+        */
         
     }
     
@@ -499,10 +502,11 @@
 
 - (void)Ganhou{
     
-    [self zeraRepetidorTempo];
+    
     
     if (self.gerenciadorJogo.faseMenu.nBlocosQuebraveis < 1) {
         self.gerenciadorJogo.Fase += 1;
+        [self zeraRepetidorTempo];
         if (self.gerenciadorJogo.Fase > self.gerenciadorJogo.nFases) {
             [self.gerenciadorJogo preparaPlayerPrincipal:2];
             self.gerenciadorJogo.fraseFinal = @"Você Ganhou";
@@ -512,6 +516,7 @@
         }else{
             [self removeAllChildren];
             [self montarFase];
+            [self zeraRepetidorTempo];
 //            [self criarObjetos];
 //            [self iniciaRodada];
         }
@@ -541,7 +546,7 @@
     static int maxSpeed = 500;
     
     if (self.gerenciadorJogo.velocidadeMax) {
-        maxSpeed = 700;
+        maxSpeed = 650;
     }
     
     float speed = sqrt(ball.physicsBody.velocity.dx*ball.physicsBody.velocity.dx + ball.physicsBody.velocity.dy * ball.physicsBody.velocity.dy);
@@ -699,10 +704,18 @@
 - (void)controlaTempo{
     
     self.tempoCorrido -= 1;
+   
+    
+
+    [self performSelectorOnMainThread:@selector(escreveTela) withObject: nil waitUntilDone:YES];
+    
+}
+
+- (void)escreveTela{
+    
     int minutos = self.tempoCorrido / 60;
     
     int segundos = self.tempoCorrido - minutos * 60;
-    
     
     if (segundos < 10) {
         [self.lblTempo setText:[NSString stringWithFormat:@"%d : 0%d",minutos, segundos]];
@@ -720,6 +733,5 @@
         self.lblTempo.fontColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:1];
     }
 
-    
 }
 @end
