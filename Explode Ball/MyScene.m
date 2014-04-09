@@ -92,6 +92,7 @@
     
     for (int i = 0; i < self.gerenciadorJogo.totalBlocos.count; i++) {
         [self addChild:[self.gerenciadorJogo.totalBlocos objectAtIndex:i]  ];
+        //[[self.gerenciadorJogo.totalBlocos objectAtIndex:i] runAction:[SKAction fadeOutWithDuration:0]];
     }
 
     [self.gerenciadorJogo preparaPlayerPrincipal:1];
@@ -117,7 +118,6 @@
     spriteBola.physicsBody.restitution = 1.0f;
     spriteBola.physicsBody.linearDamping = 0.0f;
     spriteBola.physicsBody.allowsRotation = NO;
-
     spriteBola.physicsBody.affectedByGravity = NO;
     
     spriteBola.physicsBody.categoryBitMask = categoriaBola;
@@ -206,6 +206,8 @@
 }
 
 
+
+
 - (void)atualizaPosicaoAcelerometro{
     CMAccelerometerData* data = motionManager.accelerometerData;
     
@@ -231,7 +233,7 @@
     
     //Chamado quando ocorrer um evento de touch
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInNode:self];
+    //CGPoint touchLocation = [touch locationInNode:self];
     
     //SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:touchLocation];
 //    if (body && [body.node.name isEqualToString: @"Palheta"])

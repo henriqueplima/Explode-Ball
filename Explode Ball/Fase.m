@@ -25,6 +25,7 @@
             case 1:
             
             [self faseBrasil:tamanhoFrame];
+            //[self faseTeste:tamanhoFrame];
             self.tempo = 90;
             
             break;
@@ -39,7 +40,7 @@
             
             case 3:
             
-            
+            // Blocos se movimentam
             
             break;
             
@@ -57,21 +58,15 @@
     CGPoint posicao1;
     CGPoint posicaoBloco;
     
-    posicao1 = CGPointMake(tamanhoFrame.width * 0.15, tamanhoFrame.height * 0.20);
+    posicao1 = CGPointMake(tamanhoFrame.width * 0.5, tamanhoFrame.height * 0.5);
     posicaoBloco = posicao1;
     
-    [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:1]];
-    self.nBlocosQuebraveis += 1;
     
-    
-    posicaoBloco = CGPointMake(tamanhoFrame.width * 0.30, tamanhoFrame.height * 0.5);
-    
-   /* for (int i = 0; i < 10; i++) {
-        [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:1]];
-        self.nBlocosQuebraveis += 1;
-        posicaoBloco.x += (self.tamanhoBloco.width * 1.0);
-    }*/
 }
+
+
+
+
 
 - (void)destruiuBLoco{
     self.nBlocosQuebraveis -= 1;
