@@ -177,12 +177,14 @@
     
     [self.lblVida setText:[NSString stringWithFormat:@"%d",self.gerenciadorJogo.vida]];
     self.lblVida.position = CGPointMake(self.frame.size.width * 0.9, self.size.height * 0.9);
-    self.lblVida.fontSize = 70;
+    self.lblVida.fontSize = 80;
+    self.lblVida.fontName = @"Feast of Flesh BB";
     
     self.lblPontos = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     [self.lblPontos setText:[NSString stringWithFormat:@"%d", self.gerenciadorJogo.pontos]];
     self.lblPontos.position = CGPointMake(self.frame.size.width * 0.1, self.size.height * 0.9);
-    self.lblPontos.fontSize = 65;
+    self.lblPontos.fontSize = 80;
+    self.lblPontos.fontName = @"Feast of Flesh BB";
     
     self.lblTempo = [SKLabelNode labelNodeWithFontNamed:@"Feast of Flesh BB"];
     self.lblTempo.position = CGPointMake(self.frame.size.width * 0.5, self.size.height * 0.9);

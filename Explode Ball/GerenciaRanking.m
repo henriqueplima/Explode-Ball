@@ -14,7 +14,6 @@
 @end
 
 @implementation GerenciaRanking
-@synthesize nome;
 @synthesize pontos;
 @synthesize nomes;
 @synthesize ponto;
@@ -27,11 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self refresh];
     [self ordenarVetor];
-    
-    
     
     [self.tableView reloadData];
     
@@ -69,7 +66,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-      return [self.auxNomes count];
+    return [self.auxNomes count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,10 +92,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     
-    // height of the footer
-    // this needs to be set, otherwise the height is zero and no footer will show
     return 100;
 }
 
@@ -129,8 +125,37 @@
     cell.foto.layer.cornerRadius = CGRectGetWidth(cell.foto.bounds)/2.0f;
     cell.foto.layer.masksToBounds = YES;
     cell.foto.image = [UIImage imageNamed:@"avatar"];
-   
+    
     return cell;
+}
+
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    //1. Configura a estrutura CATransform3D
+    CATransform3D rotation;
+    rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);
+    rotation.m34 = 1.0/ -600;
+    
+    
+    //2. Define o estado inicial  (antes da animação)
+    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
+    cell.layer.shadowOffset = CGSizeMake(10, 10);
+    cell.alpha = 0;
+    
+    cell.layer.transform = rotation;
+    cell.layer.anchorPoint = CGPointMake(0, 0.5);
+    
+    
+    //3. Define o estado final (após a animação) 
+    [UIView beginAnimations:@"rotation" context:NULL];
+    [UIView setAnimationDuration:0.8];
+    cell.layer.transform = CATransform3DIdentity;
+    cell.alpha = 1;
+    cell.layer.shadowOffset = CGSizeMake(0, 0);
+    [UIView commitAnimations];
+    
 }
 
 - (void)writeToPlist:(NSString *)nome : (NSString *)pontuacao
@@ -190,13 +215,15 @@
         for (int i=0; i<self.auxPontos.count; i++)
         {
             
-            /** out of bounds check */
-            if (i < self.auxPontos.count-1){
+            
+            if (i < self.auxPontos.count-1)
+            {
                 
                 NSUInteger currentIndexValue = [self.auxPontos[i] intValue];
                 NSUInteger nextIndexValue    = [self.auxPontos[i+1] intValue];
                 
-                if (currentIndexValue < nextIndexValue){
+                if (currentIndexValue < nextIndexValue)
+                {
                     hasSwapped = YES;
                     [self swapFirstIndex:i withSecondIndex:i+1 inMutableArray:self.auxPontos];
                     [self swapFirstIndex:i withSecondIndex:i+1 inMutableArray:self.auxNomes];
@@ -205,14 +232,14 @@
             
         }
         
-        /** already sorted, break out of the while loop */
+        
         if (!hasSwapped)
         {
             break;
         }
         
     }
- 
+    
     
 }
 

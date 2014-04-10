@@ -10,7 +10,6 @@
 
 @interface GerenciaRanking : UITableViewController
 
-@property NSString *nome;
 @property NSInteger *pontos;
 @property NSMutableArray *nomes;
 @property NSMutableArray *ponto;

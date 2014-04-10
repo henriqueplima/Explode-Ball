@@ -18,6 +18,7 @@
 @property NSString *filePath;
 @property NSArray *path;
 @property NSFileManager *fileManager;
+@property (weak, nonatomic) IBOutlet UIImageView *background;
 
 @property SKView * skView;
 @property (weak, nonatomic) IBOutlet UIButton *btnJogar;
