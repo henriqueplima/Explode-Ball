@@ -9,7 +9,7 @@
 #import "Bloco.h"
 
 @implementation Bloco
-
+//teste
 
 - (SKPhysicsBody *)constroiFisica : (int)vida{
     
