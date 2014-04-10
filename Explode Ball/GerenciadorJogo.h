@@ -43,7 +43,7 @@ static const uint32_t categoriaTiro = 0x1 << 10;
 @property float posicaoAntes;
 @property float posicaoDepois;
 @property BOOL acelerometro;
-
+@property NSMutableArray *blocosInvisivel;
 
 //Métodos:
 

@@ -31,8 +31,8 @@
         self.vida = 2;
         self.pontos = 0;
         self.faseMenu = [[Fase alloc]init];
-        self.Fase = 2;
-        self.nFases = 2;
+        self.Fase = 1;
+        self.nFases = 3;
         
     }
     return self;

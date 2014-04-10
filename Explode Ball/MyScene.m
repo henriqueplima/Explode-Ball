@@ -96,7 +96,15 @@
     
     for (int i = 0; i < self.gerenciadorJogo.totalBlocos.count; i++) {
         [self addChild:[self.gerenciadorJogo.totalBlocos objectAtIndex:i]  ];
-        //[[self.gerenciadorJogo.totalBlocos objectAtIndex:i] runAction:[SKAction fadeOutWithDuration:0]];
+           //[[self.gerenciadorJogo.totalBlocos objectAtIndex:i] runAction:[SKAction fadeOutWithDuration:0]];
+    }
+    
+    if (self.gerenciadorJogo.faseMenu.blocosInvi != nil) {
+        for (int i = 0; i < self.gerenciadorJogo.faseMenu.blocosInvi.count; i++) {
+            //[[self.gerenciadorJogo.faseMenu.blocosInvi objectAtIndex:i] runAction:[SKAction fadeOutWithDuration:0]];
+            [[self.gerenciadorJogo.faseMenu.blocosInvi objectAtIndex:i] setAlpha:0];
+            [self addChild:[self.gerenciadorJogo.faseMenu.blocosInvi objectAtIndex:i]  ];
+        }
     }
 
     [self.gerenciadorJogo preparaPlayerPrincipal:1];
@@ -379,6 +387,9 @@
         
         if (first.categoryBitMask == categoriaBLocoInquebravel) {
             [self removeCorpo:second];
+        }else if (first.categoryBitMask == categoriaBLocoInvisivel){
+            first.categoryBitMask = categoriaBLoco;
+                     [first.node setAlpha:1];
         }else{
             [self removeCorpo:second];
             [self removeCorpo:first];
@@ -390,6 +401,9 @@
         
         if (second.categoryBitMask == categoriaBLocoInquebravel) {
             [self removeCorpo:first];
+        }else if (second.categoryBitMask == categoriaBLocoInvisivel){
+            second.categoryBitMask = categoriaBLoco;
+            [second.node setAlpha:1];
         }else{
             [self removeCorpo:second];
             [self removeCorpo:first];
@@ -435,6 +449,9 @@
             first.categoryBitMask = categoriaBLoco;
         }else if (first.categoryBitMask == categoriaBLocoInvisivel){
             first.categoryBitMask = categoriaBLoco;
+            //[[first.node] runAction:[SKAction fadeOutWithDuration:0]];
+            //[first.node runAction:[SKAction fadeInWithDuration:2]];
+            [first.node setAlpha:1];
         }
         
         //contato Bonus Palheta

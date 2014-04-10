@@ -27,7 +27,7 @@
             [self faseBrasil:tamanhoFrame];
             //[self faseTeste:tamanhoFrame];
             self.tempo = 120;
-            
+            self.blocosInvi = nil;
             break;
             
         case 2:
@@ -35,12 +35,15 @@
             
             [self faseFlor:tamanhoFrame];
             self.tempo = 120;
-            
+            self.blocosInvi = nil;
             break;
             
             case 3:
             
-            // Blocos se movimentam
+            // Blocos invisivel
+            [self faseBlocosInvisiveis:tamanhoFrame];
+            
+            self.tempo = 180;
             
             break;
             
@@ -293,6 +296,84 @@
         posicaoBloco.x = posicao1.x;
         
     }
+    
+}
+
+- (void)faseBlocosInvisiveis: (CGSize)tamanhoFrame{
+    
+    self.nBlocosQuebraveis = 0;
+    self.blocos = nil;
+    self.blocos = [[NSMutableArray alloc]init];
+    self.blocosInvi = [[NSMutableArray alloc]init];
+    
+    CGPoint posicao1 = CGPointMake(tamanhoFrame.width * 0.08, tamanhoFrame.height * 0.6);
+    CGPoint posicaoBloco = posicao1;
+    CGPoint posicaoBloco2 = posicaoBloco;
+    float posicaoInicial;
+   
+    int blocosPorFileira = 13;
+    
+    
+    for (int y = 0; y < 5; y++) {
+        posicaoInicial = posicaoBloco.x;
+        for (int x = 0; x < blocosPorFileira; x++) {
+            //posicaoInicial = posicaoBloco.x;
+            [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:1]];
+            [self tornaEspecial:[self.blocos lastObject]];
+            self.nBlocosQuebraveis += 1;
+            
+            
+            if (y != 0) {
+                [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco2 vida:1]];
+                [self tornaEspecial:[self.blocos lastObject]];
+                self.nBlocosQuebraveis += 1;
+                posicaoBloco2.x += (self.tamanhoBloco.width * 1.0);
+            }
+            
+            posicaoBloco.x += (self.tamanhoBloco.width * 1.0);
+        }
+        blocosPorFileira -= 1;
+        posicaoBloco.y += (self.tamanhoBloco.height * 1.0);
+        posicaoBloco.x = posicaoInicial + (self.tamanhoBloco.width * 0.5);
+        posicaoBloco2.y -= (self.tamanhoBloco.height * 1.0);
+        posicaoBloco2.x = posicaoInicial + (self.tamanhoBloco.width * 0.5);
+    }
+    
+
+    //bloco invisivel
+    
+    
+    posicaoBloco.x = posicao1.x;
+    posicaoBloco2.x = posicao1.x;
+//    posicaoBloco2 = posicaoBloco;
+//    
+    posicaoBloco.x -= (self.tamanhoBloco.width * 0.50);
+    posicaoBloco2.x -= (self.tamanhoBloco.width * 0.50);
+//    posicaoBloco.y += (self.tamanhoBloco.height * 3.5);
+    
+    posicaoBloco.y += (self.tamanhoBloco.height * 1.5);
+    posicaoBloco2.y -= (self.tamanhoBloco.height * 1.5);
+    
+    
+    for (int i = 0; i < 14; i++) {
+        [self.blocosInvi addObject:[Bloco constroiBloco:@"blocoInvisivel" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:2]];
+        [self tornaEspecial:[self.blocos lastObject]];
+        self.nBlocosQuebraveis += 1;
+        
+        posicaoBloco.x += (self.tamanhoBloco.width * 1.0);
+        
+        //coluna de baixo
+        
+        [self.blocosInvi addObject:[Bloco constroiBloco:@"blocoInvisivel" tamanho:self.tamanhoBloco posicao:posicaoBloco2 vida:2]];
+        [self tornaEspecial:[self.blocos lastObject]];
+        self.nBlocosQuebraveis += 1;
+        
+        posicaoBloco2.x += (self.tamanhoBloco.width * 1.0);
+
+
+    }
+    
+    
     
 }
 

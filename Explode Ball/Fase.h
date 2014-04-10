@@ -14,6 +14,7 @@
 
 
 @property NSMutableArray *blocos;
+@property NSMutableArray *blocosInvi;
 @property int nBlocosQuebraveis;
 @property CGSize tamanhoBloco;
 @property int nBlocosEspeciais;

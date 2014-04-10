@@ -59,6 +59,16 @@
 		6EE4F01818EA103400CEF4B6 /* blocoVermelhoClaro.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EE4F01018EA103400CEF4B6 /* blocoVermelhoClaro.png */; };
 		84096FA118EF0B5E00E59986 /* quebrando.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84096F9F18EF0B5E00E59986 /* quebrando.mp3 */; };
 		84096FA218EF0B5E00E59986 /* sonic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84096FA018EF0B5E00E59986 /* sonic.mp3 */; };
+		8415D48A18F6F1CB00E40152 /* ball2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48018F6F1CB00E40152 /* ball2.png */; };
+		8415D48B18F6F1CB00E40152 /* blocoInvisivel.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48118F6F1CB00E40152 /* blocoInvisivel.png */; };
+		8415D48C18F6F1CB00E40152 /* blocoNaoQuebra.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48218F6F1CB00E40152 /* blocoNaoQuebra.png */; };
+		8415D48D18F6F1CB00E40152 /* blocoVerde.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48318F6F1CB00E40152 /* blocoVerde.png */; };
+		8415D48E18F6F1CB00E40152 /* bonus2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48418F6F1CB00E40152 /* bonus2x.png */; };
+		8415D48F18F6F1CB00E40152 /* eufrazino2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48518F6F1CB00E40152 /* eufrazino2.jpg */; };
+		8415D49018F6F1CB00E40152 /* morre.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48618F6F1CB00E40152 /* morre.png */; };
+		8415D49118F6F1CB00E40152 /* super.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48718F6F1CB00E40152 /* super.jpg */; };
+		8415D49218F6F1CB00E40152 /* velocidade.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48818F6F1CB00E40152 /* velocidade.jpg */; };
+		8415D49318F6F1CB00E40152 /* vida2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8415D48918F6F1CB00E40152 /* vida2.png */; };
 		842B602D18EA3BCE0084BC04 /* Bloco.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B602C18EA3BCE0084BC04 /* Bloco.m */; };
 		8464B1AB18EB6F37004A1285 /* Perdeu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8464B1AA18EB6F37004A1285 /* Perdeu.m */; };
 		8464B1AD18EB8D7E004A1285 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8464B1AC18EB8D7E004A1285 /* AVFoundation.framework */; };
@@ -140,6 +150,16 @@
 		6EE4F01018EA103400CEF4B6 /* blocoVermelhoClaro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocoVermelhoClaro.png; sourceTree = "<group>"; };
 		84096F9F18EF0B5E00E59986 /* quebrando.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = quebrando.mp3; sourceTree = "<group>"; };
 		84096FA018EF0B5E00E59986 /* sonic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sonic.mp3; sourceTree = "<group>"; };
+		8415D48018F6F1CB00E40152 /* ball2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball2.png; sourceTree = "<group>"; };
+		8415D48118F6F1CB00E40152 /* blocoInvisivel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocoInvisivel.png; sourceTree = "<group>"; };
+		8415D48218F6F1CB00E40152 /* blocoNaoQuebra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocoNaoQuebra.png; sourceTree = "<group>"; };
+		8415D48318F6F1CB00E40152 /* blocoVerde.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocoVerde.png; sourceTree = "<group>"; };
+		8415D48418F6F1CB00E40152 /* bonus2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bonus2x.png; sourceTree = "<group>"; };
+		8415D48518F6F1CB00E40152 /* eufrazino2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = eufrazino2.jpg; sourceTree = "<group>"; };
+		8415D48618F6F1CB00E40152 /* morre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = morre.png; sourceTree = "<group>"; };
+		8415D48718F6F1CB00E40152 /* super.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = super.jpg; sourceTree = "<group>"; };
+		8415D48818F6F1CB00E40152 /* velocidade.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = velocidade.jpg; sourceTree = "<group>"; };
+		8415D48918F6F1CB00E40152 /* vida2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vida2.png; sourceTree = "<group>"; };
 		842B602B18EA3BCE0084BC04 /* Bloco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bloco.h; sourceTree = "<group>"; };
 		842B602C18EA3BCE0084BC04 /* Bloco.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bloco.m; sourceTree = "<group>"; };
 		8464B1A918EB6F37004A1285 /* Perdeu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Perdeu.h; sourceTree = "<group>"; };
@@ -316,6 +336,16 @@
 				083878DA18EF075200C25669 /* eufrazino2.jpg */,
 				083878DB18EF075200C25669 /* morre.png */,
 				083878DC18EF075200C25669 /* super.jpg */,
+				8415D48018F6F1CB00E40152 /* ball2.png */,
+				8415D48118F6F1CB00E40152 /* blocoInvisivel.png */,
+				8415D48218F6F1CB00E40152 /* blocoNaoQuebra.png */,
+				8415D48318F6F1CB00E40152 /* blocoVerde.png */,
+				8415D48418F6F1CB00E40152 /* bonus2x.png */,
+				8415D48518F6F1CB00E40152 /* eufrazino2.jpg */,
+				8415D48618F6F1CB00E40152 /* morre.png */,
+				8415D48718F6F1CB00E40152 /* super.jpg */,
+				8415D48818F6F1CB00E40152 /* velocidade.jpg */,
+				8415D48918F6F1CB00E40152 /* vida2.png */,
 				083878DD18EF075200C25669 /* velocidade.jpg */,
 				083878DE18EF075200C25669 /* vida2.png */,
 				08F2AED018EEE82000F01152 /* Heart.png */,
@@ -428,37 +458,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				085DEE8318E52B79003629B6 /* FEASFBRG.TTF in Resources */,
+				8415D48E18F6F1CB00E40152 /* bonus2x.png in Resources */,
 				6E3E073018F3422D0053AB9B /* fundo4.png in Resources */,
 				8464B1B018EB8F64004A1285 /* StreetFighter.mp3 in Resources */,
 				083878DF18EF075200C25669 /* eufrazino2.jpg in Resources */,
 				6EE4F01718EA103400CEF4B6 /* blocoVermelho.png in Resources */,
 				085DEE8518E52ED8003629B6 /* btnIniciar.png in Resources */,
+				8415D48D18F6F1CB00E40152 /* blocoVerde.png in Resources */,
 				083878E118EF075200C25669 /* super.jpg in Resources */,
 				08EC8FA418F63EED004AD8FD /* 02.jpg in Resources */,
 				08F2AECF18EEE81700F01152 /* btnVoltar.png in Resources */,
 				6E37120118E494CC001D3A41 /* Spaceship.png in Resources */,
 				6E37122618E4A0F9001D3A41 /* blocoLaranja.png in Resources */,
 				32CACA3518E9EB9A005C3B73 /* TableCell.xib in Resources */,
+				8415D49018F6F1CB00E40152 /* morre.png in Resources */,
 				6EE4F01318EA103400CEF4B6 /* blocoCinza.png in Resources */,
 				6E37120318E494CC001D3A41 /* Images.xcassets in Resources */,
 				84096FA118EF0B5E00E59986 /* quebrando.mp3 in Resources */,
 				6EE4F01618EA103400CEF4B6 /* blocoVerde.png in Resources */,
+				8415D49218F6F1CB00E40152 /* velocidade.jpg in Resources */,
 				32882A1C18E5F4EA0089AC9D /* novoRanking.plist in Resources */,
 				32A7BDE818E4C8C500233635 /* ball2.png in Resources */,
+				8415D48F18F6F1CB00E40152 /* eufrazino2.jpg in Resources */,
 				84096FA218EF0B5E00E59986 /* sonic.mp3 in Resources */,
+				8415D49118F6F1CB00E40152 /* super.jpg in Resources */,
 				085DEE7B18E51F62003629B6 /* bloco1.png in Resources */,
 				08F2AED118EEE82000F01152 /* Heart.png in Resources */,
 				6E3711F918E494CC001D3A41 /* Main_iPad.storyboard in Resources */,
+				8415D48C18F6F1CB00E40152 /* blocoNaoQuebra.png in Resources */,
 				083878E018EF075200C25669 /* morre.png in Resources */,
+				8415D48B18F6F1CB00E40152 /* blocoInvisivel.png in Resources */,
 				083878E218EF075200C25669 /* velocidade.jpg in Resources */,
 				6EE4F01818EA103400CEF4B6 /* blocoVermelhoClaro.png in Resources */,
 				3240A11718ECA4BF002097E6 /* avatar.png in Resources */,
 				6E3711F618E494CC001D3A41 /* Main_iPhone.storyboard in Resources */,
 				6E37122818E4A105001D3A41 /* barrinha.png in Resources */,
+				8415D49318F6F1CB00E40152 /* vida2.png in Resources */,
 				6E3711ED18E494CC001D3A41 /* InfoPlist.strings in Resources */,
 				6EE4F01218EA103400CEF4B6 /* blocoAzul.png in Resources */,
 				6EE4F01118EA103400CEF4B6 /* blocoAmarelo.png in Resources */,
 				6EE4F01518EA103400CEF4B6 /* blocoNaoQuebra.png in Resources */,
+				8415D48A18F6F1CB00E40152 /* ball2.png in Resources */,
 				6EE4F01418EA103400CEF4B6 /* blocoLaranja.png in Resources */,
 				083878E318EF075200C25669 /* vida2.png in Resources */,
 				6E00C42918EE012F00370017 /* bonus2x.png in Resources */,
