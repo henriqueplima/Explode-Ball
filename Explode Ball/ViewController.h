@@ -27,6 +27,8 @@
 @property GerenciaRanking *ranking;
 - (IBAction)btnIniciar:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UISwitch *swhAcelerometro;
+@property (weak, nonatomic) IBOutlet UILabel *lblAcelerometro;
 
 
 @property (weak, nonatomic) IBOutlet UIButton *btnRaking;

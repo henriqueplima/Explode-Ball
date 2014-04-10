@@ -53,8 +53,10 @@
         //inicializa acelerometro
 
         
-        
-        [self inicializaAcelerometro];
+        if (self.gerenciadorJogo.acelerometro) {
+             [self inicializaAcelerometro];
+        }
+       
         
     }
     return self;
@@ -197,7 +199,13 @@
     
     int segundos = self.tempoCorrido - minutos * 60;
     
-    [self.lblTempo setText:[NSString stringWithFormat: @"%d : %d",minutos,segundos ]];
+    if (segundos < 10) {
+        [self.lblTempo setText:[NSString stringWithFormat: @"%d : 0%d",minutos,segundos ]];
+    }else{
+        [self.lblTempo setText:[NSString stringWithFormat: @"%d : %d",minutos,segundos ]];
+    }
+    
+    
     [self.lblTempo setColor:[UIColor yellowColor]];
     
     [self addChild:self.lblVida];
@@ -216,22 +224,21 @@
 - (void)atualizaPosicaoAcelerometro{
     CMAccelerometerData* data = motionManager.accelerometerData;
     
-    if (fabs(data.acceleration.y) > 0.03f) {
+    if (fabs(data.acceleration.y) > 0.02f) {
         float aceleracao = data.acceleration.y + 0.5;
-        NSLog(@"acceleration value = %f",data.acceleration.y);
-        NSLog(@"aceleracao somada %f",aceleracao);
+        //NSLog(@"acceleration value = %f",data.acceleration.y);
+        //NSLog(@"aceleracao somada %f",aceleracao);
         float teste = 1000 * aceleracao;
-         NSLog(@"teste valor = %f",teste);
+         //NSLog(@"teste valor = %f",teste);
         
         
         teste = MAX(teste, spritePalheta.size.width/2);
         teste = MIN(teste, self.size.width - spritePalheta.size.width/2);
         
         
-        //teste *= -1;
         [spritePalheta setPosition:CGPointMake(teste, spritePalheta.position.y)];
         
-        //[spritePalheta.physicsBody applyForce:CGVectorMake(teste, 0.0)];
+        
     }
     
 }
@@ -249,14 +256,14 @@
     
     //Chamado quando ocorrer um evento de touch
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInNode:self];
-    
-    SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:touchLocation];
-    if (body && [body.node.name isEqualToString: @"Palheta"])
-    {
-        NSLog(@"palheta posicao : %f",spritePalheta.position.x);
+//    CGPoint touchLocation = [touch locationInNode:self];
+//    
+//    SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:touchLocation];
+//    if (body && [body.node.name isEqualToString: @"Palheta"])
+//    {
+//        NSLog(@"palheta posicao : %f",spritePalheta.position.x);
         self.touchPalheta = YES;
-    }
+//    }
     
 
     
@@ -522,6 +529,7 @@
     
     float diferenca = 0;
     
+    
     if (self.gerenciadorJogo.posicaoDepois > self.gerenciadorJogo.posicaoAntes) {
         //bolinha subindo
         
@@ -530,12 +538,12 @@
             self.gerenciadorJogo.posicaoAntes *= -1;
             
         }
-        
+    
         
         diferenca = self.gerenciadorJogo.posicaoDepois - self.gerenciadorJogo.posicaoAntes;
         
         if (diferenca < 30) {
-            [spriteBola.physicsBody applyImpulse:CGVectorMake(3.0f, 3.0f)];
+            [spriteBola.physicsBody applyImpulse:CGVectorMake(8.0f, 5.0f)];
         }
         
     }else{
@@ -549,11 +557,11 @@
         diferenca = self.gerenciadorJogo.posicaoAntes - self.gerenciadorJogo.posicaoDepois;
         
         if (diferenca < 30) {
-            [spriteBola.physicsBody applyImpulse:CGVectorMake(3.0f, 3.0f)];
+            [spriteBola.physicsBody applyImpulse:CGVectorMake(8.0f, 5.0f)];
         }
         
         NSLog(@"antes %f depois %f\n",self.gerenciadorJogo.posicaoAntes, self.gerenciadorJogo.posicaoDepois);
-        diferenca = self.gerenciadorJogo.posicaoDepois - self.gerenciadorJogo.posicaoAntes;
+        //diferenca = self.gerenciadorJogo.posicaoDepois - self.gerenciadorJogo.posicaoAntes;
         NSLog(@"diferenca %f\n",diferenca);
 
     }
@@ -598,9 +606,11 @@
 
 -(void)update:(CFTimeInterval)currentTime
 {
-    
+    if (self.gerenciadorJogo.acelerometro) {
+        [self atualizaPosicaoAcelerometro];
+    }
  
-    [self atualizaPosicaoAcelerometro];
+    
     /* Called before each frame is rendered */
     SKNode* ball = [self childNodeWithName: @"Bola"];
     static int maxSpeed = 500;

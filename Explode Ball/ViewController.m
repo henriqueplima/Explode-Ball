@@ -119,6 +119,8 @@
     self.btnRaking.alpha = 0;
     self.btnIniciar.alpha = 0;
     self.background.alpha = 0;
+    self.swhAcelerometro.alpha = 0;
+    self.lblAcelerometro.text = nil;
     
 }
 
@@ -130,6 +132,8 @@
     self.btnRaking.alpha = 1;
     self.btnIniciar.alpha = 1;
     self.background.alpha = 1;
+    self.swhAcelerometro.alpha = 1;
+    self.lblAcelerometro.text = @"Acelerometro";
 }
 
 - (IBAction)btnIniciar:(id)sender
@@ -142,6 +146,14 @@
     gerenciadorJogo.nome = self.txfNome.text;
     if ([gerenciadorJogo.nome isEqualToString:@""]) {
         gerenciadorJogo.nome = @"anonimo";
+    }
+    
+    if (self.swhAcelerometro.on) {
+        gerenciadorJogo.acelerometro = YES;
+        NSLog(@"ligado");
+    }else{
+        gerenciadorJogo.acelerometro = NO;
+        NSLog(@"desligado");
     }
     
     // Configure the view.

@@ -42,7 +42,7 @@ static const uint32_t categoriaTiro = 0x1 << 10;
 @property int repetiuBatidaLateral;
 @property float posicaoAntes;
 @property float posicaoDepois;
-
+@property BOOL acelerometro;
 
 
 //Métodos:
