@@ -26,7 +26,7 @@
             
             [self faseBrasil:tamanhoFrame];
             //[self faseTeste:tamanhoFrame];
-            self.tempo = 90;
+            self.tempo = 120;
             
             break;
             
@@ -34,7 +34,7 @@
             //Brasil
             
             [self faseFlor:tamanhoFrame];
-            self.tempo = 90;
+            self.tempo = 120;
             
             break;
             
@@ -61,6 +61,40 @@
     posicao1 = CGPointMake(tamanhoFrame.width * 0.5, tamanhoFrame.height * 0.5);
     posicaoBloco = posicao1;
     
+    
+        [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:1]];
+        [self tornaEspecial:[self.blocos lastObject]];
+        self.nBlocosQuebraveis += 1;
+    
+    float primeiroPosition = posicaoBloco.y;
+    
+    posicaoBloco.y -= self.tamanhoBloco.height * 0.50;
+        posicaoBloco.x -= self.tamanhoBloco.width * 1.0;
+        
+    
+    float segundoPosition = posicaoBloco.y;
+    
+    NSLog(@"primeira : %f segunda %f \n",primeiroPosition,segundoPosition);
+    
+    float diferenca = segundoPosition - primeiroPosition;
+    NSLog(@"diferenca %f",diferenca);
+    
+    
+    
+    [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:1]];
+    [self tornaEspecial:[self.blocos lastObject]];
+    self.nBlocosQuebraveis += 1;
+
+    
+    posicaoBloco.y = tamanhoFrame.height * 0.65;
+    
+//    for (int i = 0; i < 2; i++) {
+//        [self.blocos addObject:[Bloco constroiBloco:@"blocoVerde" tamanho:self.tamanhoBloco posicao:posicaoBloco vida:1]];
+//        [self tornaEspecial:[self.blocos lastObject]];
+//        self.nBlocosQuebraveis += 1;
+//        posicaoBloco.y = self.tamanhoBloco.height * 1.15;
+//        posicaoBloco.x = self.tamanhoBloco.width * 1.0;
+//    }
     
 }
 

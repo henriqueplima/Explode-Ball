@@ -35,6 +35,7 @@
         //criando bordas laterais
         //SKPhysicsBody* bordasLaterais = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         bordas = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+        //bordas.node.name = @"Bordas";
         self.physicsBody = bordas;
         self.physicsBody.friction = 0.0f;
         
@@ -52,14 +53,15 @@
         //inicializa acelerometro
 
         
-        //motionManager = [[CMMotionManager alloc]init];
-        //[self inicializaAcelerometro];
+        
+        [self inicializaAcelerometro];
         
     }
     return self;
 }
 
 - (void)inicializaAcelerometro{
+    motionManager = [[CMMotionManager alloc]init];
     if (motionManager.accelerometerAvailable) {
         [motionManager startAccelerometerUpdates];
     }
@@ -130,6 +132,7 @@
     [spritePalheta setSize:self.gerenciadorJogo.tamanhoOriginalPalheta];
     spritePalheta.name = @"Palheta";
     spritePalheta.position = CGPointMake(self.size.width/2, self.size.height * 0.05);
+    //spritePalheta.position = CGPointMake(self.size.width * 0.8, self.size.height * 0.05);
     spritePalheta.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:spritePalheta.frame.size];
     spritePalheta.physicsBody.restitution = 0.1f;
     spritePalheta.physicsBody.friction = 0.4f;
@@ -213,11 +216,22 @@
 - (void)atualizaPosicaoAcelerometro{
     CMAccelerometerData* data = motionManager.accelerometerData;
     
-    if (fabs(data.acceleration.y) > 0.2) {
-         NSLog(@"acceleration value = %f",data.acceleration.y);
-        float teste = 80.0 * data.acceleration.y;
-        teste *= -1;
-        [spritePalheta.physicsBody applyForce:CGVectorMake(teste, 0.0)];
+    if (fabs(data.acceleration.y) > 0.03f) {
+        float aceleracao = data.acceleration.y + 0.5;
+        NSLog(@"acceleration value = %f",data.acceleration.y);
+        NSLog(@"aceleracao somada %f",aceleracao);
+        float teste = 1000 * aceleracao;
+         NSLog(@"teste valor = %f",teste);
+        
+        
+        teste = MAX(teste, spritePalheta.size.width/2);
+        teste = MIN(teste, self.size.width - spritePalheta.size.width/2);
+        
+        
+        //teste *= -1;
+        [spritePalheta setPosition:CGPointMake(teste, spritePalheta.position.y)];
+        
+        //[spritePalheta.physicsBody applyForce:CGVectorMake(teste, 0.0)];
     }
     
 }
@@ -235,14 +249,14 @@
     
     //Chamado quando ocorrer um evento de touch
     UITouch *touch = [touches anyObject];
-    //CGPoint touchLocation = [touch locationInNode:self];
+    CGPoint touchLocation = [touch locationInNode:self];
     
-    //SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:touchLocation];
-//    if (body && [body.node.name isEqualToString: @"Palheta"])
-//    {
-        //NSLog(@"Began touch on paddle");
+    SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:touchLocation];
+    if (body && [body.node.name isEqualToString: @"Palheta"])
+    {
+        NSLog(@"palheta posicao : %f",spritePalheta.position.x);
         self.touchPalheta = YES;
-   // }
+    }
     
 
     
@@ -354,6 +368,8 @@
     
     if (second.categoryBitMask == categoriaTiro && [first.node.name isEqualToString:@"Bloco"]) {
         
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
+        
         if (first.categoryBitMask == categoriaBLocoInquebravel) {
             [self removeCorpo:second];
         }else{
@@ -362,37 +378,42 @@
         }
         
     }else if (first.categoryBitMask == categoriaTiro && [second.node.name isEqualToString:@"Bloco"]){
+        
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
+        
         if (second.categoryBitMask == categoriaBLocoInquebravel) {
             [self removeCorpo:first];
         }else{
             [self removeCorpo:second];
             [self removeCorpo:first];
         }
-    }
-       
-    //contato Palheta e bola
-    if ([first.node.name isEqualToString:@"Palheta"] && [second.node.name isEqualToString:@"Bola"]) {
+        
+        
+        // contato Palheta e bola
+    }else if ([first.node.name isEqualToString:@"Palheta"] && [second.node.name isEqualToString:@"Bola"]){
+        
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
+        
         float palheta = first.node.position.x;
         float bola = second.node.position.x;
         bola = bola / 10;
         palheta = palheta / 10;
         float impulsoY = bola - palheta;
-            [second applyImpulse:CGVectorMake(0, 0)];
-            [second applyImpulse:CGVectorMake(impulsoY, 2.0f)];
+        [second applyImpulse:CGVectorMake(0, 0)];
+        [second applyImpulse:CGVectorMake(impulsoY, 2.0f)];
         
-    
         
-    }
-    //Contato Borda Inferior e Bola
-   
-    if ([first.node.name isEqualToString:@"BordaInferior"] && [second.node.name isEqualToString:@"Bola"]) {
+        //Contato Borda Inferior e Bola
         
+        
+    }else if ([first.node.name isEqualToString:@"BordaInferior"] && [second.node.name isEqualToString:@"Bola"]){
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
         [self encerraRodada];
         
-    
-    //Contato bloco e Bola
+        //Contato bloco e Bola
         
     }else if ([first.node.name isEqualToString:@"Bloco"] && [second.node.name isEqualToString:@"Bola"]){
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
         if (self.gerenciadorJogo.superBola) {
             [self removeCorpo:first];
         }else if (first.categoryBitMask == categoriaBLoco) {
@@ -409,30 +430,9 @@
             first.categoryBitMask = categoriaBLoco;
         }
         
-        //impulso
-        /*
-        //float blocoX = first.node.position.x / 10;
-        float blocoY = first.node.position.y / 10;
-        //float bolaX = second.node.position.x / 10;
-        float bolaY = second.node.position.y / 10;
-        float impulsoY = bolaY - blocoY ;
-        
-        if (impulsoY < 0) {
-            [second applyImpulse:CGVectorMake(0, 0)];
-            [second applyImpulse:CGVectorMake(0, -2.0f)];
-        }else if (impulsoY > 0){
-            [second applyImpulse:CGVectorMake(0, 0)];
-            [second applyImpulse:CGVectorMake(0, 2.0f)];
-        }
-        */
-        
-    }
-    
-    
-    if (first.categoryBitMask == categoriaBonus && [second.node.name isEqualToString:@"Palheta"]) {
-        
-        
-        
+        //contato Bonus Palheta
+    }else if (first.categoryBitMask == categoriaBonus && [second.node.name isEqualToString:@"Palheta"]){
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
         
         if ([first.node.name isEqualToString:@"2x"]) {
             self.gerenciadorJogo.pontos *= 2;
@@ -461,10 +461,8 @@
 
         
         
-        
-        
     }else if ([first.node.name isEqualToString:@"Palheta"] && second.categoryBitMask == categoriaBonus){
-        
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
         if ([second.node.name isEqualToString:@"2x"]) {
             self.gerenciadorJogo.pontos *= 2;
             [self.lblPontos setText:[NSString stringWithFormat:@"%d",self.gerenciadorJogo.pontos]];
@@ -490,18 +488,76 @@
             self.gerenciadorJogo.tiro = YES;
         }
         
-        
-        NSLog(@"passou de novo");
-        
-    }
-    
-    
-    if (first.contactTestBitMask == categoriaBonus && [second.node.name isEqualToString:@"BordaInferior"]) {
+        //contato Bonus e borda inferior
+
+    }else if (first.contactTestBitMask == categoriaBonus && [second.node.name isEqualToString:@"BordaInferior"]){
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
         [self removeCorpo:first];
     }else if (second.contactTestBitMask == categoriaBonus && [first.node.name isEqualToString:@"BordaInferior"]){
         [self removeCorpo:second];
+        self.gerenciadorJogo.repetiuBatidaLateral = 0;
+        
+        
+        //parade lateral e bola
+        
+        
+    }else if (first.node.name == nil && [second.node.name isEqualToString:@"Bola"]){
+        self.gerenciadorJogo.repetiuBatidaLateral += 1;
+        if (self.gerenciadorJogo.repetiuBatidaLateral == 1) {
+            self.gerenciadorJogo.posicaoAntes = second.node.position.y;
+        }else if (self.gerenciadorJogo.repetiuBatidaLateral == 2){
+            self.gerenciadorJogo.posicaoDepois = second.node.position.y;
+            
+            
+            [self verificaRota];
+        }
     }
     
+   
+
+    
+}
+
+- (void)verificaRota{
+    
+    float diferenca = 0;
+    
+    if (self.gerenciadorJogo.posicaoDepois > self.gerenciadorJogo.posicaoAntes) {
+        //bolinha subindo
+        
+        if (self.gerenciadorJogo.posicaoDepois < 0) {
+            self.gerenciadorJogo.posicaoDepois *= -1;
+            self.gerenciadorJogo.posicaoAntes *= -1;
+            
+        }
+        
+        
+        diferenca = self.gerenciadorJogo.posicaoDepois - self.gerenciadorJogo.posicaoAntes;
+        
+        if (diferenca < 30) {
+            [spriteBola.physicsBody applyImpulse:CGVectorMake(3.0f, 3.0f)];
+        }
+        
+    }else{
+        //bolinha descendo
+        if (self.gerenciadorJogo.posicaoAntes < 0) {
+            self.gerenciadorJogo.posicaoDepois *= -1;
+            self.gerenciadorJogo.posicaoAntes *= -1;
+            
+        }
+        
+        diferenca = self.gerenciadorJogo.posicaoAntes - self.gerenciadorJogo.posicaoDepois;
+        
+        if (diferenca < 30) {
+            [spriteBola.physicsBody applyImpulse:CGVectorMake(3.0f, 3.0f)];
+        }
+        
+        NSLog(@"antes %f depois %f\n",self.gerenciadorJogo.posicaoAntes, self.gerenciadorJogo.posicaoDepois);
+        diferenca = self.gerenciadorJogo.posicaoDepois - self.gerenciadorJogo.posicaoAntes;
+        NSLog(@"diferenca %f\n",diferenca);
+
+    }
+    self.gerenciadorJogo.repetiuBatidaLateral = 0;
 }
 
 - (void)Ganhou{
@@ -544,7 +600,7 @@
 {
     
  
-    //[self atualizaPosicaoAcelerometro];
+    [self atualizaPosicaoAcelerometro];
     /* Called before each frame is rendered */
     SKNode* ball = [self childNodeWithName: @"Bola"];
     static int maxSpeed = 500;
