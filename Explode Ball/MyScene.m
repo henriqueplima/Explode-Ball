@@ -178,6 +178,20 @@
     //bordaInferior
     [self addChild:bordaInferior];
 
+    //borda superior
+    //SKSpriteNode *bordaSuperior = [SKSpriteNode spriteNodeWithImageNamed:@"barrinha"];
+    SKSpriteNode *bordaSuperior = [[SKSpriteNode alloc]init];
+    bordaSuperior.name = @"BordaSuperior";
+    bordaSuperior.position = CGPointMake(self.size.width * 0.5, self.size.height * 0.999);
+    [bordaSuperior setSize:CGSizeMake(self.size.width, self.size.height * 0.003)];
+    bordaSuperior.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:bordaSuperior.size];
+    bordaSuperior.physicsBody.dynamic = NO;
+    bordaSuperior.physicsBody.affectedByGravity = NO;
+    //bordaInferior.physicsBody.categoryBitMask = categoriaBordaInferior | categoriaBola | categoriaBonus;
+    bordaSuperior.physicsBody.categoryBitMask = categoriaBordaSuperior;
+    //bordaInferior
+    [self addChild:bordaSuperior];
+    
     
     //[self criarPalhetaBola];
 
@@ -420,8 +434,13 @@
         bola = bola / 10;
         palheta = palheta / 10;
         float impulsoY = bola - palheta;
-        [second applyImpulse:CGVectorMake(0, 0)];
-        [second applyImpulse:CGVectorMake(impulsoY, 2.0f)];
+        //[second applyImpulse:CGVectorMake(0, 0)];
+        if (impulsoY < 0) {
+            [second setVelocity:CGVectorMake(1, -1)];
+        }else{
+            [second setVelocity:CGVectorMake(-1, -1)];
+        }
+        [second applyImpulse:CGVectorMake(impulsoY, 5.0f)];
         
         
         //Contato Borda Inferior e Bola
@@ -742,7 +761,7 @@
         [self addChild:bonus];
         [bonus.physicsBody applyImpulse:CGVectorMake(-300.0f, 300.0f)];
     }else if (x < 21){
-        SKSpriteNode *bonus = [SKSpriteNode spriteNodeWithImageNamed:@"super.jpg"];
+        SKSpriteNode *bonus = [SKSpriteNode spriteNodeWithImageNamed:@"super.png"];
         bonus.name = @"super";
         bonus.position = posicao;
         bonus.size = CGSizeMake(70, 70);
@@ -753,14 +772,14 @@
         bonus.physicsBody.collisionBitMask = categoriaPalheta;
         bonus.physicsBody.dynamic = YES;
         
-        NSLog(@"chamou super");
+        //NSLog(@"chamou super");
         
         [bonus runAction:[SKAction moveToY:-300 duration:1.5]];
         
         [self addChild:bonus];
         [bonus.physicsBody applyImpulse:CGVectorMake(-300.0f, 300.0f)];
     }else{
-        SKSpriteNode *bonus = [SKSpriteNode spriteNodeWithImageNamed:@"eufrazino2.jpg"];
+        SKSpriteNode *bonus = [SKSpriteNode spriteNodeWithImageNamed:@"tiro.png"];
         bonus.name = @"atirar";
         bonus.position = posicao;
         bonus.size = CGSizeMake(70, 70);
@@ -771,7 +790,7 @@
         bonus.physicsBody.collisionBitMask = categoriaPalheta;
         bonus.physicsBody.dynamic = YES;
         
-        NSLog(@"chamou euFrazino");
+       // NSLog(@"chamou euFrazino");
         
         [bonus runAction:[SKAction moveToY:-300 duration:1.5]];
         

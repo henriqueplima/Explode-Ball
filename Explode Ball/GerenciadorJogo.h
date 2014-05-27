@@ -18,6 +18,7 @@ static const uint32_t categoriaPalheta = 0x1 << 1;
 static const uint32_t categoriaBonus = 0x1 << 2;
 static const uint32_t categoriaBordaInferior = 0x1 << 3;
 static const uint32_t categoriaTiro = 0x1 << 10;
+static const uint32_t categoriaBordaSuperior = 0x1 << 11;
 @interface GerenciadorJogo : NSObject
 
 //propriedades

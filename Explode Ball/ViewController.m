@@ -184,6 +184,9 @@
 
 }
 
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
 - (void)voltarMenuPrincipal{
     [self.skView presentScene:nil];
     [self habilitarObjetos];
