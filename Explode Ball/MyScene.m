@@ -28,7 +28,7 @@
         //Define a cor de fundo do cenário
         //SKColor *fundo = [[SKColor alloc]initWithRed:1 green:1 blue:1 alpha:1];
                 // Gravidade do Jogo
-        [self.physicsWorld setGravity:CGVectorMake(0, -5)];
+        //[self.physicsWorld setGravity:CGVectorMake(0, -5)];
         self.physicsWorld.contactDelegate = self;
         
         
